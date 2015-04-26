@@ -12,6 +12,7 @@ def connect(url):
 	#print content
 	p = re.findall('<location>(.*)</location>',content)
 	name = re.findall('<title>(.*)</title>',content)
+	#print 'Read content success!'
 	return p,name
 
 def caesar(location):
@@ -32,16 +33,18 @@ def downurl():
 		#print location
 		url = caesar(location)
 		down.append(url)
+	#print 'Crack url success!'
 		
 	file = open('xiami_down.txt','w')
 	file.close()
 	
 	for i in range(len(p[0])):
 		file = open('xiami_down.txt','a+')
-		file.write(p[1][i]+'\n'+down[i]+'\n')
+		file.write(p[1][i][9:-3]+'\n'+down[i]+'\n')
 		file.close
-	print 'All done! :)'
-
+		urllib.urlretrieve(down[i],p[1][i][9:-3]+'.mp3')
+	print 'Save downurl success! :)'
+	
 if __name__ == '__main__':
 	location = []
 	down = []
