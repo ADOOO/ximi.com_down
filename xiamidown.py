@@ -26,9 +26,9 @@ def caesar(location):
 
 def downurl():
 	num = len(p[0])
-	#n = len(name[0])
-	#print num,n
-	for i in range(len(p[0])):
+	print 'There is %s songs here!'%(num)
+
+	for i in range(num):
 		location = p[0][i]
 		#print location
 		url = caesar(location)
@@ -38,12 +38,14 @@ def downurl():
 	file = open('xiami_down.txt','w')
 	file.close()
 	
-	for i in range(len(p[0])):
+	for i in range(num):
+		name = p[1][i][9:-3].decode('utf-8')
 		file = open('xiami_down.txt','a+')
 		file.write(p[1][i][9:-3]+'\n'+down[i]+'\n')
 		file.close
-		urllib.urlretrieve(down[i],p[1][i][9:-3]+'.mp3')
-	print 'Save downurl success! :)'
+		urllib.urlretrieve(down[i],name+'.mp3')
+		print '%s has finished'%(i+1)
+	print 'All download success! :)'
 	
 if __name__ == '__main__':
 	location = []
@@ -53,5 +55,4 @@ if __name__ == '__main__':
 	urlin = raw_input('Please enter url:')
 	url = urlin[:20]+urlin[30:]
 	p = connect(url)
-	#name = connect(url)[1]
 	downurl()
